@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:title" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:description" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:image" content="social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- PAGE TITLE HERE -->
+	<title>Admin Dashboard</title>
+	
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="{{asset('images/favicon.png')}}" />
+    <!-- Datatable -->
+    <link href="{{asset('vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+	<link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+	
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+   <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+	{% include 'base2.html.twig' %}
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-12 mt-4">
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row shapreter-row">
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="fas fa-eye"></i>
+													</span>
+													<h3 class="count">{{allUsers}}</h3>
+													<span class="fs-14">Number of Users</span>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="far fa-comments"></i>
+													</span>
+													<h3 class="count">{{deletedM}}</h3>
+													<span class="fs-14">Deleted Messages</span>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="fas fa-suitcase"></i>
+													</span>
+													<h3 class="count">{{app.user.recieved | length}}</h3>
+													<span class="fs-14">Recieved messages</span>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="fas fa-suitcase"></i>
+													</span>
+													<h3 class="count">{{app.user.sent | length}}</h3>
+													<span class="fs-14">Sent messages</span>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="fas fa-calendar"></i>
+													</span>
+													<h3 class="count">{{deleted}}</h3>
+													<span class="fs-14">Deleted Accounts</span>
+												</div>
+											</div>
+											<div class="col-xl-2 col-lg-2 col-sm-4 col-6">
+												<div class="static-icon">
+													<span>
+														<i class="fas fa-phone-alt"></i>
+													</span>
+													<h3 class="count">{{clients}}</h3>
+													<span class="fs-14">Clients</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-6">
+								<div class="card">
+									<div class="card-header border-0 pb-0">
+										<h4 class="fs-20 font-w600">Users :</h4>
+									</div>
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-xl-6 col-sm-6">
+												<div class="progress default-progress">
+												{% set A= (admins / allUsers)*100 %}
+													<div class="progress-bar bg-vigit progress-animated" style="width: {{A}}%; height:13px;" role="progressbar">
+														<span class="sr-only">90% Complete</span>
+													</div>
+												</div>
+												<div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+													<span class="fs-14 font-w500">Admins</span>
+													
+													<span class="fs-16"><span class="text-black pe-2"></span>{{A |number_format(2)|trim('0')|trim('.')}} %</span>
+												</div>
+												<div class="progress default-progress">
+												{% set C= (clients / allUsers)*100 %}
+													<div class="progress-bar bg-contact progress-animated" style="width: {{C}}%; height:13px;" role="progressbar">
+														<span class="sr-only">45% Complete</span>
+													</div>
+												</div>
+												<div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+													<span class="fs-14 font-w500">Clients</span>
+													<span class="fs-16"><span class="text-black pe-2"></span>{{C ??0|number_format(2)|trim('0')|trim('.')}} %</span>
+												</div>
+												<div class="progress default-progress">
+												{% set E= (editors / allUsers)*100 %}
+													<div class="progress-bar bg-follow progress-animated" style="width: {{E}}%; height:13px;" role="progressbar">
+														<span class="sr-only">85% Complete</span>
+													</div>
+												</div>
+												<div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+													<span class="fs-14 font-w500">Editors</span>
+													<span class="fs-16"><span class="text-black pe-2"></span>{{E ?? 0|number_format(2)|trim('0')|trim('.')}} %</span>
+												</div>
+											</div>
+											<div class="col-xl-6 col-sm-6">
+												<div id="pieChart3"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-6">
+								<div class="card">
+									<div class="card-header border-0 flex-wrap pb-0">
+										<h4 class="fs-20 font-w600">Genders</h4>
+										<div>
+											
+											
+											<div class="mt-2">
+												
+											</div>
+										</div>
+									</div>
+									<div class="card-body pt-0 pb-3">
+										<div id="morris_donught" class="chartBar"></div>
+									</div>
+								</div>
+							</div>
+							
+							</div>
+							<div class="col-xl-6">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="card" id="user-activity1">
+											<div class="card-header border-0 pb-0">
+												<h4 class="fs-20 mb-1">Number of Logins per month</h4>
+												<div class="card-action coin-tabs">
+													
+												</div>
+											</div>
+											<div class="card-body">
+												
+											
+												<div class="tab-content mt-5" id="myTabContent">
+													<div class="tab-pane fade show active" id="monthly1">
+														 <canvas id="barChart_1"></canvas>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-6">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="card">
+											<div class="card-header border-0 pb-0">
+												<h4 class="fs-20 mb-1">Featured Companies</h4>
+												<div class="dropdown">
+													<a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+															<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+															<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+														</svg>
+													</a>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="javascript:void(0);">Delete</a>
+														<a class="dropdown-item" href="javascript:void(0);">Edit</a>
+													</div>
+												</div>
+											</div>
+											<div class="card-body loadmore-content">
+												<div class="row" id="FeaturedCompaniesContent">
+													<div class="col-xl-6 col-sm-6 mt-4 ">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#2769ee"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Kleon Team</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 mt-4 col-sm-6">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#7630d2"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Ziro Studios Inc.</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6  col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#b848ef"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Qerza</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#7e1d74"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Kripton Studios</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#0411c2"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Omah Ku Inc.</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#378a82"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Ventic</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																	  <g  transform="translate(-457 -443)">
+																		<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																		<g  transform="translate(457 443)">
+																		  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#175baa"/>
+																		  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																		  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																		</g>
+																	  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Sakola</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-xl-6 col-sm-6 mt-4">
+														<div class="d-flex">
+															<span>
+																<svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+																  <g  transform="translate(-457 -443)">
+																	<rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="#c5c5c5"/>
+																	<g  transform="translate(457 443)">
+																	  <rect  data-name="placeholder" width="71" height="71" rx="12" fill="#eeb927"/>
+																	  <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"/>
+																	  <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"/>
+																	</g>
+																  </g>
+																</svg>
+															</span>
+															<div class="ms-3 featured">
+																<h4 class="fs-20 mb-1">Uena Foods</h4>
+																<span>Desgin Team Agency</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="card-footer border-0 m-auto pt-0">
+												<a href="javascript:void(0);" class="btn btn-outline-primary btn-rounded m-auto dlab-load-more" id="FeaturedCompanies" rel="ajax/featuredcompanies.html">View more</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+            </div>
+        </div>
+        
+     {% set tab = [n1, n2, n3,n4, n5,n6,n7,n8,n9,n10,n11,n12] %}
+
+
+       <script>
+	var pieChart3 = function(){
+		 var options = {
+          series: [{{admins}}, {{clients}}, {{editors}}],
+          chart: {
+          type: 'donut',
+		  height:230
+        },
+		dataLabels:{
+			enabled: false
+		},
+		stroke: {
+          width: 0,
+        },
+		colors:['#F6AD2E', 'var(--primary)', '#412EFF'],
+		legend: {
+              position: 'bottom',
+			  show:false
+            },
+        responsive: [{
+          breakpoint: 768,
+          options: {
+           chart: {
+			  height:200
+			},
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pieChart3"), options);
+        chart.render();
+    
+	}
+	var donutChart = function(){
+			Morris.Donut({
+				element: 'morris_donught',
+				data: [{
+					label: "\xa0 \xa0 Females \xa0 \xa0",
+					value: {{females}},
+
+				}, {
+					label: "\xa0 \xa0 Males \xa0 \xa0",
+					value: {{males}}
+				},],
+				resize: true,
+				redraw: true,
+				colors: ['#f93a0b', '#145650'],
+				//responsive:true,
+				
+			});
+		}
+		
+		
+		
+			var barChart1 = function(){
+		if(jQuery('#barChart_1').length > 0 ){
+			const barChart_1 = document.getElementById("barChart_1").getContext('2d');
+    
+			barChart_1.height = 100;
+
+			new Chart(barChart_1, {
+				type: 'bar',
+				data: {
+					defaultFontFamily: 'Poppins',
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug","Sep","Oct","Nov","Dec"],
+					datasets: [
+						{
+							label: "Login",
+							data: [{{n1}}, {{n2}}, {{n3}},{{n4}}, {{n5}},{{n6}},{{n7}}, {{n8}},{{n9}},{{n10}},{{n11}},{{n12}}],
+							borderColor: 'rgba(249, 58, 11, 1)',
+							borderWidth: "0",
+							backgroundColor: 'rgba(249, 58, 11, 1)'
+						}
+					]
+				},
+				options: {
+					legend: false, 
+					scales: {
+						yAxes: [{
+							max: {{ max(tab) }},
+            min: 0,
+							ticks: {
+								beginAtZero: true,
+								stepSize: 0.5
+							}
+						}],
+						xAxes: [{
+							// Change here
+							
+							barPercentage: 0.5
+						}]
+					}
+				}
+			});
+		}
+	}
+	</script>
+        
+    </div>
+
+    <script src="{{asset('vendor/global/global.min.js')}}"></script>
+    <script src="{{asset('vendor/chart.js/Chart.bundle.min.js')}}"></script>
+	<!-- Apex Chart -->
+	<script src="{{asset('vendor/apexchart/apexchart.js')}}"></script>
+	
+    <!-- Datatable -->
+    <script src="{{asset('vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/plugins-init/datatables.init.js')}}"></script>
+	 <script src="{{asset('js/plugins-init/chartjs-init.js')}}"></script>
+	<script src="{{asset('js/dashboard/statistics-page.js')}}"></script>
+	<script src="{{asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
+ <script src="{{asset('vendor/peity/jquery.peity.min.js')}}"></script>
+    <script src="{{asset('js/custom.min.js')}}"></script>
+	<script src="{{asset('js/dlabnav-init.js')}}"></script>
+	<script src="{{asset('js/demo.js')}}"></script>
+    <script src="{{asset('js/styleSwitcher.js')}}"></script>
+    <script src="{{asset('vendor/raphael/raphael.min.js')}}"></script>
+    <script src="{{asset('vendor/morris/morris.min.js')}}"></script>
+    <script src="{{asset('js/plugins-init/morris-init.js')}}"></script>
+	<script src="{{asset('js/styleSwitcher.js')}}"></script>
+</body>
+</html>
