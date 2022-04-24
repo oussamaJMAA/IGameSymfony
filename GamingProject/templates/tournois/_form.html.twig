@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:title" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:description" content="Jobick : Job Admin Bootstrap 5 Template" />
+	<meta property="og:image" content="social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- PAGE TITLE HERE -->
+	<title>Admin Dashboard</title>
+	
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="{{asset('images/favicon.png')}}" />
+    <!-- Datatable -->
+    <link href="{{asset('vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+	<link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+   <div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+	{% include 'base.html.twig' %}
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+  <div class="content-body">
+            <div class="container-fluid">
+				
+			
+                <!-- row -->
+								<div class="row">
+									<div class="col-xl-6  col-md-6 mb-4">
+									  {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+										{{ form_label(form.nomTournois, "Nom Tournois", {'label_attr': {'class': 'form-label font-w600'}}) }}
+                                       {{ form_widget(form.nomTournois, {'attr': {'class': 'form-control solid','placeholder':'Nom Tournois'}}) }}
+                                     
+									</div>
+                                    
+                  
+                  	<div class="col-xl-6  col-md-6 mb-4">
+									  {{ form_label(form.recompense, "Recompense", {'label_attr': {'class': 'form-label font-w600'}}) }}
+                                         {{ form_widget(form.recompense, {'attr': {'class': 'form-control solid','placeholder':'Recompense'}}) }}
+                                   {{ form_errors(form.recompense, {'attr': {'class': 'form-control solid'}}) }}      
+									</div>	
+                                    
+                  <div class="col-xl-6  col-md-6 mb-4">
+									  {{ form_label(form.dateTournois, "Date Tournois", {'label_attr': {'class': 'form-label font-w600'}}) }}
+       {{ form_widget(form.dateTournois, {'attr': {'class': 'form-control form_datetime solid','placeholder':'date Tournois'}}) }}
+                                      
+									</div>
+                  
+                   
+                   <div class="col-xl-6  col-md-6 mb-4">
+									  {{ form_label(form.ptsXp, "Points XP", {'label_attr': {'class': 'form-label font-w600'}}) }}
+                                         {{ form_widget(form.ptsXp, {'attr': {'class': 'form-control solid','placeholder':'PTS XP'}}) }}
+                                      
+									</div>
+							
+	 <div class="col-xl-6  col-md-6 mb-4">
+									  {{ form_label(form.timeT, "Time", {'label_attr': {'class': 'form-label font-w600'}}) }}
+                                         {{ form_widget(form.timeT, {'attr': {'class': 'select'}}) }}
+                                      
+									</div>
+									
+							<div class="card-footer text-end">
+								<div>
+									<a href="javascript:void(0);" class="btn btn-primary me-3">Close</a>
+									
+                                    <button class="btn  btn-secondary ">{{ button_label|default('Save') }}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+        <!--**********************************-->
+ 
+
+  <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="https://dexignlab.com/" target="_blank">DexignLab</a> 2021</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+        
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="{{asset('vendor/global/global.min.js')}}"></script>
+    <script src="{{asset('vendor/chart.js/Chart.bundle.min.js')}}"></script>
+	<!-- Apex Chart -->
+	<script src="{{asset('vendor/apexchart/apexchart.js')}}"></script>
+	
+    <!-- Datatable -->
+    <script src="{{asset('vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/plugins-init/datatables.init.js')}}"></script>
+
+	<script src="{{asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
+
+    <script src="{{asset('js/custom.min.js')}}"></script>
+	<script src="{{asset('js/dlabnav-init.js')}}"></script>
+	<script src="{{asset('js/demo.js')}}"></script>
+    <script src="{{asset('js/styleSwitcher.js')}}"></script>
+
+    
+{{ form_end(form) }}

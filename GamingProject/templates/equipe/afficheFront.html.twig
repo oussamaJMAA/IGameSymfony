@@ -1,0 +1,46 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}Team{% endblock %}
+
+{% block body %}
+{{parent()}}
+
+<div class="content-wrap">
+<div class="mpl-navbar-mobile-overlay"></div>
+<div>
+<section class="mpl-banner mpl-banner-top mpl-banner-parallax">
+<div class="mpl-image" data-speed="0.8">
+<img src="{{asset('assets/images/dark/banner-bg.html')}}" alt="" class="jarallax-img">
+</div>
+<div class="mpl-banner-content mpl-box-sm">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="container mpl-box-md">
+<table class="table mb-60">
+<thead>
+<tr>
+<th scope="col">#</th>
+<th scope="col">Nom Equipe</th>
+<th scope="col">Membres</th>
+<th scope="col">Point XP</th>
+<th scope="col">Tournois Gagne</th>
+</tr>
+</thead>
+<tbody>
+
+{% for e in equipes %}
+<tr>
+{% if e.nomEquipe =="roukaia" %}
+<th scope="row">1</th>
+<td>{{e.nomEquipe}}</td>
+<td>{{e.membres}}</td>
+<td>{{e.ptsExp}}</td>
+<td>{{e.tournoisGagne}}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
