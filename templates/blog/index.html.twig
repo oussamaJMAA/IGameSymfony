@@ -1,0 +1,27 @@
+{% extends 'admin_template/base.html.twig' %}
+
+
+{% block stat %}
+	<section class="articles">
+
+ <a href="{{ path('blog_create') }}" class="btn btn-primary">Créer une Publication </a>
+
+		{% for publication in publications %}
+			<article>
+				<h2>{{ publication.titre }}</h2>
+				<div class="metadata">Ecrit le
+					{{ publication.createdAt | date('d/m/Y') }}
+					a
+					{{publication.createdAt | date('H:i')}}</div>
+				<div class="content">
+					<img src="{{ publication.image }}" alt="">
+					<p>{{ publication.contenu }}</p>
+					<a href="{{ path('blog_show', {'id': publication.id}) }}" class="btn btn-primary">fil de discussion
+					</a>
+				</div>
+			</article>
+		{% endfor %}
+
+	</section>
+
+{% endblock %}
