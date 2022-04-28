@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+{% block f7 %} class="active" {% endblock %}
+
+
+{% block body %}
+    <head>
+
+        <!-- Google-Font-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,800" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+    <script src={{ asset('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')}}></script>
+    <script src={{ asset('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')}})></script>
+    <![endif]-->
+        <!--icone-->
+        <script src={{ asset('https://kit.fontawesome.com/f324d78908.js')}} crossorigin="anonymous"></script>
+    </head>
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="container-fluid">
+                <!--overview start-->
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white mb-3 text-center">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <i class="far fa-comment-dots fa-3x"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <h4 class="card-title">{{ produit }} Produits </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white mb-3 text-center">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <i class="fas fa-question fa-3x"></i>
+                                    </div>
+                                    <div class="col-8">
+                                        <h4 class="card-title">{{ commande }} Commande</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="alert alert-success">
+                            <h3 class="alert-heading my-3"><i class="fas fa-arrow-up"></i>the most popular products</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>number of sales</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for produit in topproduit %}
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('uploads/'~produit.Image) }}" WIDTH=150 HEIGHT=120 alt="">{{ produit.Nom}}
+                                        </td>
+                                        <td>{{ produit.Quantite }}</td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="alert alert-success">
+                                <h3 class="alert-heading my-3"><i class="fas fa-arrow-up"></i>the worst popular products</h3>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>number of sales</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for produit in worstproduit %}
+                                        <tr>
+                                            <td>
+                                                <img src="{{ asset('uploads/'~produit.Image) }}" WIDTH=150 HEIGHT=120 alt="">{{ produit.Nom}}
+                                            </td>
+                                            <td>{{ produit.Quantite }}</td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+
+
+
+
+
+            </div>
+
+            </div>
+
+
+
+            </div>
+        </section>
+
+        <!--main content end-->
+    </section>
+
+{% endblock %}
+

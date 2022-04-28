@@ -1,0 +1,21 @@
+
+    {% for produit in produits %}
+        <tr>
+            <td>{{ produit.id }}</td>
+            <td>{{ produit.Nom }}</td>
+            <td>{{ produit.Prix }}</td>
+            <td><img src="{{ asset('uploads/'~produit.Image) }}" WIDTH=150 HEIGHT=120 alt=""></td>
+            <td>{{ produit.Quantite }}</td>
+            <td>{{ produit.avis }}</td>
+            <td>
+                <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                <a href="{{ path('produit_edit', {'id': produit.id}) }}" >edit</a>
+                <a href="{{ path('commande_new', {'idproduit':produit.id}) }}" class="filled-button" style="margin: 5px;">Commander</a>
+                <a href="{{ path('cart_add',{'id':produit.id}) }}" class="filled-button" style="margin: 5px;">Ajouter panier</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
