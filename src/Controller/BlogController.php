@@ -17,12 +17,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use app\Form\CommentFormType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Validator\Constraints\DateTime as ConstraintsDateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class BlogController extends AbstractController
 {
+
+    /**
+     * @Route("/frontBlog", name="frontBlog")
+     */
+    public function frontBlog(): Response
+    {
+        
+        return $this->render('front_template/blog.html.twig');
+    }
+
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -31,20 +43,29 @@ class BlogController extends AbstractController
         
         return $this->render('admin_template/base.html.twig');
     }
-    
+     /**
+     * @Route("/front", name="front")
+     */
+    public function front()
+     {
+        return $this->render('front_template/baseFront.html.twig');         
+     }
+
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(PublicationRepository $repo): Response
+    public function index(PublicationRepository $repo, PaginatorInterface $paginator,Request $request): Response
     {
 
+        
+        
 
         $publications = $repo->findAll();
         $comment = $repo->findAll();
-
+        $pub =  $paginator->paginate($publications,$request->query->getInt('page',1),2);
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
-            'publications' => $publications
+            'publications' => $pub
         ]);
     }
 
@@ -128,10 +149,25 @@ class BlogController extends AbstractController
         $entityManager->remove($publication);
         $entityManager->flush();
 
-        return $this->redirectToRoute("blog");
+        return $this->redirectToRoute("blog");  
     }
-
+    
     /**
-     * @Route("/blog/neww", name="blog_createe")
+     * @Route("/stat", name="stat")
      */
+    public function ShowStat()
+     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $publication = $entityManager->getRepository(Publication::class)->findAll();
+        $x= count($publication);
+        dump($x);
+        
+
+        return $this->render('blog/stat.html.twig', [
+            'x' => $x
+        ]);
+     }
+
+
+
 }

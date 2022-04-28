@@ -15,6 +15,74 @@
             </tr>
         </thead>
         <tbody>
+            <div class="header-content">
+            <div class="tz-search pull-right">
+
+                <!--Start form search-->
+                <form method="GET" action="{{ path('ajax_search') }}">
+                   
+                    <input  name="q" type="text" class="tz-query" id="tz-query" value="" placeholder="Rechercher un Comment">
+                </form>
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="#"><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level" id="entitiesNav">
+                        </ul>
+                    </li>
+                </ul>
+
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+                <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                        var searchRequest = null;
+                        $("#tz-query").keyup(function() {
+                            var minlength = 1;
+                            var that = this;
+                            var value = $(this).val();
+                            var entitySelector = $("#entitiesNav").html('');
+                            if (value.length >= minlength ) {
+                             
+
+                                searchRequest = $.ajax({
+                                    type: "GET",
+                                    url: "http://localhost:8000/comment/asearch?q="+value,
+                                    data: {
+                                    },
+                                    dataType: "text",
+                                    success: function(msg){
+                                        //we need to check if the value is the same
+                                        if (value===$(that).val()) {
+                                            var result = JSON.parse(msg);
+                                            $.each(result, function(key, arr) {
+                                                $.each(arr, function(id, value) {
+                                                    if (key === 'posts') {
+                                                        if (id !== 'error') {
+                                                            alert(value[0]);
+                                                            entitySelector.append('<li><a href="#"><b>'+value[0]+'</a></li>');
+
+                                                        } else {
+                                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+
+
+
+                <!--End Form search-->
+
+                <!--live search-->
+
+        <!--End class header content-->
+        </div>
         {% for comment in comments %}
             <tr>
                 <td>{{ comment.id }}</td>

@@ -22,7 +22,7 @@ class CommentController extends AbstractController
      */
     public function index(CommentRepository $commentRepository, PaginatorInterface $paginator,Request $request): Response
     {
-     
+
     $comments = $this->getDoctrine()
     ->getRepository(Comment::class)
     ->findAll();
@@ -46,13 +46,27 @@ class CommentController extends AbstractController
                 $comment->setCreatedAt(new \DateTimeImmutable());
             }
             $commentRepository->add($comment);
+            
+            $user = "User";
+
+        $basic  = new \Nexmo\Client\Credentials\Basic('88952883', 'SDoQDilbLEI5NqmM');
+        $client = new \Nexmo\Client($basic);
+
+        $message = $client->message()->send([
+            'to' => '21623035323',
+            'from' => 'IGAME',
+            'text' => 'someone has commented on your post!'
+        ]);
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('comment/new.html.twig', [
             'comment' => $comment,
             'form' => $form->createView(),
         ]);
+        
+     
     }
 
     /**
@@ -96,4 +110,40 @@ class CommentController extends AbstractController
 
         return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /** 
+     * @Route("/asearch",name="ajax_search",methods={"GET"})
+     * return Mixed
+     */
+    
+    public function searchAction(Request $request ,CommentRepository  $repository)
+    {
+        dd(1);
+        $em = $this->getDoctrine()->getManager();
+        $requestString =$request->query->get('q');
+          dd($requestString);
+        $posts =  $repository->findByAuteur($requestString);
+        dd($posts);
+        if(!$posts) {
+            $result['posts']['error'] = "Aucun Comment avec ce nom :( ";
+        } else {
+            $result['posts'] = $this->getRealEntities($posts);
+        }
+        return new Response(json_encode($result));
+        
+    }
+
+
+    public function getRealEntities($posts)
+    {
+       dd($posts);
+
+        foreach ($posts as $key => $value){
+            //dd($value['cv']);
+            $realEntities[$value['id']] = [$value['contenu']];
+        }
+
+        return $realEntities;
+    }
+
 }

@@ -45,9 +45,41 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
+     /**
+     * @param $auteur
+     * @return mixed
+     */
+    public function findByAuteur($auteur){
+        return $this->createQueryBuilder('p')
+            ->select('p.id,p.auteur,p.contenu')
+            ->andWhere('p.contenu like :val')
+            ->setParameter('val','%'.$auteur.'%')
+            ->orderBy('p.id' , 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
+
+        /**
+     * @param $nom
+     * @return mixed
+     */
+    public function findByContenu($nom){
+        return $this->createQueryBuilder('p')
+            ->select('p.id,p.contenu,p.auteur')
+            ->andWhere('p.contenu like :val')
+            ->setParameter('val','%'.$nom.'%')
+            ->orderBy('p.id' , 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
     /*
     public function findByExampleField($value)
     {
