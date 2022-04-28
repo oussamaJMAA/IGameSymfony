@@ -1,0 +1,86 @@
+
+{% block body %}
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">LES Jeux</h3>
+                </div>
+                <!-- ./card-header -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <h2 class="text-center display-4">Chercher Jeu</h2>
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <form action="{{ path('searchG')}}" method="GET">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control form-control-lg" placeholder="Entrer le nom d'un Jeu" id="site-search" name="search">
+                                        <div class="input-group-append">
+                                            <button  class="btn btn-lg btn-default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="card-body">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>NOM jeu</td>
+                            <td>categorie</td>
+                            <td>DESCRIPTION</td>
+                            <td>lien de jeu</td>
+                            <td>IMAGE</td>
+                            <td>SUPPRIMER</td>
+                            <td>MODIFIER</td>
+                            <td>LISTE TOURNOIS</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tbody  id="myTable">
+                        {% for jeu in jeus %}
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td>{{ game.id }}</td>
+                                <td>{{ game.game_name }}</td>
+                                <td>{{ game.category_name }}</td>
+                                <td>{{ game.description}}</td>
+                                <td><img src ="{{ asset(game.game_imglink )}}"
+                                         alt="" height="80" width="80">
+                                </td>
+
+                                <td>  <a href="{{ path('deleteJeu',{'id':game.id},{'attr':{'class':'btn btn-primary'}}) }}">Delete</a></td>
+                                <td>    <a href="{{ path('updateJeu',{'id':game.id},{'attr':{'class':'btn btn-primary'}}) }}">Update</a>
+                                <td>    <a href="{{ path('listTournoisByJeu',{'id':game.id},{'attr':{'class':'btn btn-primary'}}) }}">Afficher</a>
+
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <a href="{{ path('addJeu',{'attr':{'class':'btn btn-primary'}}) }}">Ajouter jeu</a>
+                    </table>
+
+                </div>
+                <div class="pagination-item">
+
+                    <span>{{ knp_pagination_render(jeus) }}</span>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <a href="{{ path('orderbyName') }}" class="btn btn-primary" >ordonner par nom Jeu </a>
+
+        <div>
+            <center>Nombre de Tournois total: {{ games.getTotalItemCount }}</center>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}

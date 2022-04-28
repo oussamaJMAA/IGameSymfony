@@ -1,0 +1,63 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <h1>Category index</h1>
+    {#    <center><h3>Chercher une categorie</h3></center>#}
+
+{#    <form action="{{ path('searchcateg')}}" method="GET">#}
+{#        <center><input type="search" id="site-search" name="search"#}
+{#                       aria-label="Search through site content" class="form-control">#}
+{#            <button type="submit" class="btn btn-primary">Search</button></center>#}
+{#    </form>#}
+ <section class="content">
+        <div class="container-fluid">
+            <h3 class="text-center display-4">Chercher une categorie</h3>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="{{ path('searchcateg')}}" method="GET">
+                        <div class="input-group">
+                            <input type="search" class="form-control form-control-lg" placeholder="Entrer le nom d'une categorie" id="site-search" name="search">
+                            <div class="input-group-append">
+                                <button  class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CategoryId</th>
+                <th>CategoryName</th>
+                <th>Discription</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.categoryId }}</td>
+                <td>{{ category.categoryName }}</td>
+                <td>{{ category.discription }}</td>
+                <td>
+                    <a href="{{ path('app_category_show', {'categoryId': category.categoryId}) }}">show</a>
+                    <a href="{{ path('app_category_edit', {'categoryId': category.categoryId}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_category_new') }}">Create new</a>
+{% endblock %}
