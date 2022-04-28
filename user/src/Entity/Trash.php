@@ -32,6 +32,16 @@ class Trash
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $deletedFrom;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Trash
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getDeletedFrom(): ?int
+    {
+        return $this->deletedFrom;
+    }
+
+    public function setDeletedFrom(?int $deletedFrom): self
+    {
+        $this->deletedFrom = $deletedFrom;
 
         return $this;
     }
