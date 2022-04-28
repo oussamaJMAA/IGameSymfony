@@ -159,15 +159,18 @@ class BlogController extends AbstractController
      {
         $entityManager = $this->getDoctrine()->getManager();
         $publication = $entityManager->getRepository(Publication::class)->findAll();
+        $comment = $entityManager->getRepository(Comment::class)->findAll();
         $x= count($publication);
+        $v= count($comment);
         dump($x);
-        
+        dump($v);
 
         return $this->render('blog/stat.html.twig', [
-            'x' => $x
+            'x' => $x,  'v' => $v
         ]);
      }
 
+  
 
 
 }
