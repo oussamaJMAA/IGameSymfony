@@ -28,10 +28,15 @@ class BlogController extends AbstractController
     /**
      * @Route("/frontBlog", name="frontBlog")
      */
-    public function frontBlog(): Response
+    public function frontBlog(PublicationRepository $repo, PaginatorInterface $paginator,Request $request): Response
     {
-        
-        return $this->render('front_template/blog.html.twig');
+        $publications = $repo->findAll();
+        $comment = $repo->findAll();
+        $pub =  $paginator->paginate($publications,$request->query->getInt('page',1),2);
+        return $this->render('front_template/blog.html.twig',[
+            'controller_name' => 'BlogController',
+            'publications' => $pub
+        ]);
     }
 
 
@@ -46,9 +51,15 @@ class BlogController extends AbstractController
      /**
      * @Route("/front", name="front")
      */
-    public function front()
+    public function front(PublicationRepository $repo, PaginatorInterface $paginator,Request $request): Response
      {
-        return $this->render('front_template/baseFront.html.twig');         
+        $publications = $repo->findAll();
+        $comment = $repo->findAll();
+        $pub =  $paginator->paginate($publications,$request->query->getInt('page',1),2);
+        return $this->render('front_template/baseFront.html.twig',[
+            'controller_name' => 'BlogController',
+            'publications' => $pub
+        ]);         
      }
 
     /**
@@ -56,9 +67,6 @@ class BlogController extends AbstractController
      */
     public function index(PublicationRepository $repo, PaginatorInterface $paginator,Request $request): Response
     {
-
-        
-        
 
         $publications = $repo->findAll();
         $comment = $repo->findAll();
@@ -126,15 +134,24 @@ class BlogController extends AbstractController
     }
 
 
-
-
-    /**
+  /**
      * @Route("/blog/{id}", name="blog_show")
      */
     public function show(Publication $publication)
     {
 
         return $this->render('blog/show.html.twig', [
+            'publication' => $publication
+        ]);
+    }
+
+    /**
+     * @Route("/frontBlog/{id}", name="frontBlogg")
+     */
+    public function showw(Publication $publication)
+    {
+
+        return $this->render('front_template/blog.html.twig', [
             'publication' => $publication
         ]);
     }
