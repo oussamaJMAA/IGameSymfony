@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{parent()}}
+			
+
+
+
+
+
+
+
+
+ <div class="mpl-box-md">
+        <div class="container">
+            <ul class="mpl-isotope-options" data-sr="option" data-sr-origin="left" data-sr-interval="100"
+                data-sr-duration="1000" data-sr-distance="10">
+                
+            </ul>
+            <div class="mpl-isotope-grid row hgap-xs vgap-md" data-sr="product" data-sr-interval="120"
+                 data-sr-duration="1200" data-sr-distance="20">
+<tr> </tr>
+
+
+    <h1>Our Products</h1>
+    <div class="d-flex align-items-center"><input class="form-control" type="search" id="search" placeholder="Search by Nom">
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Nom</th>
+                <th><i class="fa fa-bookmark">Prix</th>
+                <th>Image</th>
+                <th>Quantite</th>
+                <th>Avis</th>
+                <th>actions</th>
+            </tr>
+             <tbody id="all">
+             {% include 'produit/produitajax.html.twig' %}
+        </tbody>
+              <tbody align="left" border="2" id="search">
+        </tbody>
+        </thead>
+    </table>
+ 
+							
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            var currentRequest = null;
+            $("#search").keyup(function(e){
+
+                var value = $(this).val();
+                if(currentRequest != null) {
+                    currentRequest.abort();
+                }
+
+                currentRequest = $.ajax({
+
+                    url : "{{ path('searchrdvproduit') }}",
+                    type : 'GET',
+                    data: {
+                        'searchValue' : value
+                    },
+
+                    success : function(retour)
+                    {
+                        $('#all').html(retour);
+
+                    },
+                });
+                return false;
+            });
+        });
+    </script>
+    </script>
+   
+{% endblock %}

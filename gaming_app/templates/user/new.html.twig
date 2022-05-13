@@ -1,0 +1,15 @@
+{% extends 'user/dashboard.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+{{parent()}}
+  <div class="content-body">
+            <div class="container-fluid">
+
+    {{ include('user/_form.html.twig') }}
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+    </div>
+    </div>
+{% endblock %}

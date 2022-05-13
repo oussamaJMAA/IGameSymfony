@@ -1,0 +1,31 @@
+knpu_oauth2_client:
+    clients:
+        google:
+            
+            type: google
+            client_id: '%env(resolve:GOOGLE_CLIENT_ID)%'
+            client_secret: '%env(resolve:GOOGLE_CLIENT_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_google_check
+            redirect_params: {}
+        discord:
+            # must be "discord" - it activates that type!
+            type: discord
+            # add and set these environment variables in your .env files
+            client_id: '%env(resolve:DISCORD_CLIENT_ID)%'
+            client_secret: '%env(resolve:DISCORD_CLIENT_SECRET)%'
+            # a route name you'll create
+            redirect_route: '%env(resolve:CLIENT_REDIRECT)%'
+            redirect_params: {}
+        facebook:
+            # this will be one of the supported types
+            type: facebook
+            client_id: '%env(resolve:FACEBOOK_ID)%'
+            client_secret: '%env(resolve:FACEBOOK_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_facebook_check
+            redirect_params: {}
+            graph_api_version: v2.12
+            

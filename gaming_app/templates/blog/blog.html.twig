@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{{parent()}}
+			
+
+
+
+
+
+<div class="mpl-box-md">
+        <div class="container">
+            <ul class="mpl-isotope-options" data-sr="option" data-sr-origin="left" data-sr-interval="100"
+                data-sr-duration="1000" data-sr-distance="10">
+                
+            </ul>
+            <div class="mpl-isotope-grid row hgap-xs vgap-md" data-sr="product" data-sr-interval="120"
+                 data-sr-duration="1200" data-sr-distance="20">
+
+	
+
+
+
+
+
+	<article>
+		<h2>{{ publication.titre }}</h2>
+		<div class="metadata">
+			Ecrit le
+			{{ publication.createdAt | date('d/m/Y') }}
+			a
+			{{publication.createdAt | date('H:i')}}</div>
+		<div class="content">
+			<img src="{{ publication.image }}" alt="">
+			<p>{{ publication.contenu }}</p>
+		</div>
+		
+		
+
+		
+		
+	</article>
+
+	<section id="commmentaires">
+		{% for comment in publication.comments  %}
+			<div class="comment">
+				<div class="row">
+					<div class="col-2">
+					
+						{{comment.auteur}} <small>
+							({{comment.createdAt | date('d/m/Y')}} {{comment.createdAt | date('H:i')}}
+                            
+						</small>):
+                    
+					</div>
+					<div class="col1">
+					<label>{{ comment.contenu }}</label>
+				
+
+					
+					</div>
+			
+				</div>
+			</div>
+		{% endfor %}
+
+	</section>
+</div>
+ 
+</div>
+</div>
+
+
+{% endblock %}

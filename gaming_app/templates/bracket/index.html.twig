@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bracket index{% endblock %}
+
+{% block body %}
+    <h1>Bracket index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Equipe1</th>
+                <th>Equipe2</th>
+                <th>StatusTeam1</th>
+                <th>StatusTeam2</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bracket in brackets %}
+            <tr>
+                <td>{{ bracket.id }}</td>
+                <td>{{ bracket.equipe1 }}</td>
+                <td>{{ bracket.equipe2 }}</td>
+                <td>{{ bracket.statusTeam1 }}</td>
+                <td>{{ bracket.statusTeam2 }}</td>
+                <td>
+                    <a href="{{ path('app_bracket_show', {'id': bracket.id}) }}">show</a>
+                    <a href="{{ path('app_bracket_edit', {'id': bracket.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bracket_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Participants{% endblock %}
+
+{% block body %}
+{{parent()}}
+
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Tournaments</title>
+<meta name="description" content="MonsterPlay - Superpower for Gaming Websites">
+<meta name="keywords" content="gaming, game, esports, community, template, html, bootstrap, webpack">
+<meta name="author" content="nK">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+</head>
+<body>
+<br>
+<div class="mpl-box-md">
+<div class="container">
+<div class="row hgap-lg vgap-lg">
+<div class="col-lg mpl-content">
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item active" aria-current="page">Participants</li>
+</ol>
+</nav>
+
+
+{% for p in participants %}
+<div class="row vgap" data-sr="tournaments" data-sr-interval="100" data-sr-duration="1000" data-sr-distance="20">
+<div class="col-12 col-lg-6" data-sr-item="tournaments">
+<div class="cyberpress-tournament">
+<ul class="cyberpress-tournament-info">
+<li>
+<a href="#" class="cyberpress-game-inline-link">
+<img src="assets/images/esports/game-dota-2.svg" alt="">{{ p.equipeNom}}</a>
+</li>
+
+
+
+
+
+
+</ul>
+</div>
+</div>
+</div>
+<br>
+{% endfor %}
+</body>
+</html>
+{% endblock %}
