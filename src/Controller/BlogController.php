@@ -39,6 +39,8 @@ class BlogController extends AbstractController
         ]);
     }
 
+    
+
 
     /**
      * @Route("/admin", name="admin")
@@ -62,6 +64,8 @@ class BlogController extends AbstractController
         ]);         
      }
 
+   
+
     /**
      * @Route("/blog", name="blog")
      */
@@ -76,6 +80,9 @@ class BlogController extends AbstractController
             'publications' => $pub
         ]);
     }
+
+
+
 
     /**
      * @Route("/", name="home")
@@ -92,6 +99,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit" , name = "blof_edit")
+     * 
      */
     public function form(Publication $publication = null, Request $request, EntityManagerInterface $manager)
     {
@@ -134,6 +142,9 @@ class BlogController extends AbstractController
     }
 
 
+
+
+
   /**
      * @Route("/blog/{id}", name="blog_show")
      */
@@ -145,10 +156,59 @@ class BlogController extends AbstractController
         ]);
     }
 
+
+    
+    /**
+     * @Route("/front/new", name="blog_createe")
+     * @Route("/front/{id}/edit" , name = "blof_edit")
+     * 
+     */
+    public function form2(Publication $publication = null, Request $request, EntityManagerInterface $manager)
+    {
+
+        if (!$publication) {
+
+            $publication = new Publication;
+        }
+
+
+        $form = $this->createFormBuilder($publication)
+            ->add('titre')
+            ->add('contenu')
+            ->add('image')
+            ->getForm();
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$publication->getId()) {
+                $publication->setCreatedAt(new \DateTimeImmutable());
+            }
+
+
+
+
+            $manager->persist($publication);
+            $manager->flush();
+
+            return $this->redirectToRoute('front', ['id' => $publication->getId()]);
+        }
+
+
+        return $this->render('front_template/test.html.twig', [
+            'formPublication' => $form->createView(),
+            'editMode' =>  $publication->getId() !== null
+        ]);
+    }
+
+
+
     /**
      * @Route("/frontBlog/{id}", name="frontBlogg")
      */
-    public function showw(Publication $publication)
+    public function show1(Publication $publication)
     {
 
         return $this->render('front_template/blog.html.twig', [
@@ -168,6 +228,19 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute("blog");  
     }
+
+      /**
+     * @Route("/front", name="delete_blogg")
+     */
+    public function delete1($id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $publication = $entityManager->getRepository(Publication::class)->find($id);
+        $entityManager->remove($publication);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("front");  
+    }
     
     /**
      * @Route("/stat", name="stat")
@@ -186,6 +259,21 @@ class BlogController extends AbstractController
             'x' => $x,  'v' => $v
         ]);
      }
+
+     /**
+     * @Route("/mobile/getAll",name="get_mobile_publication")
+     */
+    public function showPublications(): Response
+    {
+        $publication = $this->getDoctrine()->getRepository(Publication::class)->findAll();
+        $publicationList = [];
+        foreach ($publication as $g) {
+            $publicationList[] = ['id' => $g->getId(), 'titre' => $g->getTitre(), 'contenu' => $g->getContenu()];
+
+        }
+        return new Response(json_encode($publicationList));
+
+    }
 
   
 

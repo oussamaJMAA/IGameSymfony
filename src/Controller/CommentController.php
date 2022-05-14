@@ -69,6 +69,45 @@ class CommentController extends AbstractController
      
     }
 
+
+ /**
+     * @Route("/neww", name="jdida", methods={"GET", "POST"})
+     */
+    public function neww(Request $request, CommentRepository $commentRepository): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$comment->getId()) {
+                $comment->setCreatedAt(new \DateTimeImmutable());
+            }
+            $commentRepository->add($comment);
+            
+            $user = "User";
+
+        $basic  = new \Nexmo\Client\Credentials\Basic('88952883', 'SDoQDilbLEI5NqmM');
+        $client = new \Nexmo\Client($basic);
+
+        $message = $client->message()->send([
+            'to' => '21623035323',
+            'from' => 'IGAME',
+            'text' => 'someone has commented on your post!'
+        ]);
+           // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+
+        }
+
+        return $this->render('comment/newcomm.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
+        
+     
+    }
+
+
     /**
      * @Route("/{id}", name="app_comment_show", methods={"GET"})
      */
@@ -99,6 +138,26 @@ class CommentController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/{id}/editt", name="app_comment_editt", methods={"GET", "POST"})
+     */
+    public function editt(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    {
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $commentRepository->add($comment);
+          //  return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('comment/editcomm.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
+    }
+
     /**
      * @Route("/{id}", name="app_comment_delete", methods={"POST"})
      */
@@ -110,6 +169,21 @@ class CommentController extends AbstractController
 
         return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
     }
+
+     /**
+     * @Route("/{id}", name="app_comment_deletee", methods={"POST"})
+     */
+    public function deletee(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $commentRepository->remove($comment);
+        }
+
+        return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    
 
     /** 
      * @Route("/asearch",name="ajax_search",methods={"GET"})
