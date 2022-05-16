@@ -6,6 +6,7 @@ use Dompdf\Options;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Entity\RechercheData;
+use App\Form\PromoProduitType;
 use App\Security\EmailVerifier;
 use App\Form\RechercherDataType;
 use Symfony\Component\Mime\Email;
@@ -381,4 +382,42 @@ $user=$this->getUser();
             "Attachment" => false
         ]);
     }
-}
+
+     /**
+     * @Route("/promotion/{id}", name="produit_promotion", methods={"GET","POST"})
+     */
+    public function promotion(Request $request, Produit $produit,SessionInterface $session,EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(PromoProduitType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $produit->setPromotion($form->get('promotion')->getData());
+           $entityManager->persist($produit);
+           $entityManager->flush();
+           $produit->setReduction($produit->getPromotion()->getprixPro());  
+    $produit->setPrix($produit->getPrix() -($produit->getPrix() * $produit->getPromotion()->getprixPro()/100));
+
+           $entityManager->persist($produit);
+           $entityManager->flush();
+
+            return $this->redirectToRoute('produit_index_back');
+        }
+
+        return $this->render('produit/promotion.html.twig', [
+            'produit' => $produit,
+            'form' => $form->createView(),
+            "session"=>$session,
+        ]);
+    }
+/**
+     * @Route("/store", name="produit_store", methods={"GET"})
+     */
+    public function sotre(ProduitRepository $produitRepository,SessionInterface $session): Response
+    {
+        if ($this->getUser()->getIsVerified()){
+        return $this->render('produit/store.html.twig',[
+                'products' => $produitRepository->findAll(),
+            "session"=>$session,
+        ]);
+    }
+}}

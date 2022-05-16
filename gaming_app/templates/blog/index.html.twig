@@ -89,7 +89,7 @@
 					a
 					{{publication.createdAt | date('H:i')}}</div>
 				<div class="content">
-					<img src="{{ publication.image }}" alt="">
+				<img src="{{ asset('uploads/photos/' ~ publication.image) }}" alt="">
 					<p>{{ publication.contenu }}</p>
 					<a href="{{ path('blog_show', {'id': publication.id}) }}" class="btn btn-primary">fil de discussion
 					</a>

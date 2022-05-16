@@ -3,7 +3,14 @@
 {{parent()}}
 			
 
-
+ <style>
+      .comment2 {
+        width: 40%;
+        height: 100px;
+        padding: 10px;
+        background-color: #d0e2bc;
+      }
+    </style>
 
 
 
@@ -30,7 +37,7 @@
 			a
 			{{publication.createdAt | date('H:i')}}</div>
 		<div class="content">
-			<img src="{{ publication.image }}" alt="">
+			<img src="{{ asset('uploads/photos/' ~ publication.image) }}" alt="">
 			<p>{{ publication.contenu }}</p>
 		</div>
 		
@@ -41,27 +48,27 @@
 	</article>
 
 	<section id="commmentaires">
-		{% for comment in publication.comments  %}
+	{% for comment in publication.comments %}
+
+	
+		
 			<div class="comment">
 				<div class="row">
-					<div class="col-2">
-					
-						{{comment.auteur}} <small>
-							({{comment.createdAt | date('d/m/Y')}} {{comment.createdAt | date('H:i')}}
-                            
-						</small>):
-                    
-					</div>
-					<div class="col1">
-					<label>{{ comment.contenu }}</label>
 				
-
-					
+					<div class="col1">
+					<label> {{comment.auteur}}:    {{ comment.contenu }}</label>
+			
 					</div>
 			
 				</div>
 			</div>
-		{% endfor %}
+						
+		{% endfor %}				
+		{{ form_start(form) }}
+{{form_widget(form.comment)}}
+{{form_widget(form.add)}}
+			{{ form_end(form) }}
+
 
 	</section>
 </div>

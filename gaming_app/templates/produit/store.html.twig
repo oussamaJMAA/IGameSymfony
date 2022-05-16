@@ -13,24 +13,24 @@
                  data-sr-duration="1200" data-sr-distance="20">
                 {% for p in products %}
                     <div class="mpl-isotope-item col-12 col-sm-6 col-md-4">
-                        <a href="{{ path('app_game_rate', {'gameId': p.gameId}) }}" class="mpl-product-item"
+                        <a href="#" class="mpl-product-item"
                            data-sr-item=product>
 <span class="mpl-product-image">
 <span class="mpl-image">
-<img src="{{ asset('uploads/photos/' ~ game.gameImg) }}" alt="">
+<img src="{{ asset('uploads/photos/' ~ p.image) }}"  width ="200px" height="200px"alt="">
 </span>
 </span>
 
-                            <span class="mpl-product-title h4">{{ game.gameName }}</span>
+                            <span class="mpl-product-title h4">{{ p.nom }}</span>
 
-                            <span class="mpl-price"> {{ game.gameLink }} </span>
+                            <span class="mpl-price">  </span>
                             </span>
                             <span class="mpl-product-content">
                         </a>
                     </div>
                 {% endfor %}
                 <div class="navigation">
-                    {{ knp_pagination_render(games) }}
+                  
                 </div>
             </div>
         </div>

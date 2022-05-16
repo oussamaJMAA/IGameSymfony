@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : Dim 15 mai 2022 à 02:24
+-- Généré le : lun. 16 mai 2022 à 19:43
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.4.9
 
@@ -72,7 +72,8 @@ INSERT INTO `archive` (`id`, `username`, `email`, `gender`, `deleted_at`, `creat
 (32, 'oussama24', 'fatimafatouma784@gmail.com', 'male', '2022-04-29', '2022-04-28'),
 (33, 'oussama120', 'jemaaoussama64@gmail.com', 'male', '2022-05-12', '2022-05-12'),
 (34, 'oussama120', 'jemaaoussama64@gmail.com', 'male', '2022-05-12', '2022-05-12'),
-(35, 'oussama120', 'jemaaoussama64@gmail.com', 'male', '2022-05-12', '2022-05-12');
+(35, 'oussama120', 'jemaaoussama64@gmail.com', 'male', '2022-05-12', '2022-05-12'),
+(36, 'oussama99', 'jemaaoussama64@gmail.com', 'female', '2022-05-15', '2022-05-15');
 
 -- --------------------------------------------------------
 
@@ -87,15 +88,6 @@ CREATE TABLE `bracket` (
   `status_team1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status_team2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `bracket`
---
-
-INSERT INTO `bracket` (`id`, `equipe1`, `equipe2`, `status_team1`, `status_team2`) VALUES
-(13, 'easy', 'roukaa', 'winner', 'looser'),
-(14, 'hello', 'league', 'looser', 'winner'),
-(15, 'easy', 'league', 'Final looser', 'Final winner');
 
 -- --------------------------------------------------------
 
@@ -114,9 +106,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`, `discription`) VALUES
-(2, 'cat4', 'test4'),
 (3, 'cat3', 'test3'),
-(6, 'arcade', 'arcade games');
+(6, 'arcade', 'arcade games'),
+(8, 'action', 'violent games'),
+(9, 'fps', 'fps games'),
+(10, 'fifa', 'soccer game');
 
 -- --------------------------------------------------------
 
@@ -139,7 +133,7 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`id`, `nbproduit`, `date`, `methodedepaiement`, `etat`, `prixtotale`, `user_id`) VALUES
-(2, 7, '2022-05-13', 'Espece', 'annulé', 55, NULL),
+(2, 7, '2022-05-13', 'Espece', 'en cours', 55, NULL),
 (3, 1, '2022-05-11', 'Cheque', 'En cours', 20, NULL),
 (4, 1, '2022-05-11', 'Cheque', 'livré', 20, NULL),
 (6, 3, '2022-07-11', 'Espece', 'terminé', 95, NULL),
@@ -150,8 +144,9 @@ INSERT INTO `commande` (`id`, `nbproduit`, `date`, `methodedepaiement`, `etat`, 
 (11, 3, '2023-03-01', 'Espece', 'En cours', 60, NULL),
 (12, 66, '2023-01-22', 'Cheque', 'En cours', 1320, NULL),
 (13, 8, '2024-01-01', 'Espece', 'Terminé', 160, NULL),
-(34, 5, '2022-05-26', 'Cheque', 'En cours', 100, 198),
-(35, 2, '2022-05-22', 'Espece', 'En cours', 4, 198);
+(37, 5, '2022-05-15', 'par chèque', 'en attente', 500, 206),
+(38, 50, '2022-05-15', 'espèce', 'en cours', 5000, 206),
+(41, 2, '2022-05-21', 'Cheque', 'En cours', 22, 215);
 
 -- --------------------------------------------------------
 
@@ -172,7 +167,9 @@ INSERT INTO `commande_produit` (`commande_id`, `produit_id`) VALUES
 (11, 6),
 (12, 6),
 (13, 7),
-(34, 6);
+(37, 4),
+(38, 4),
+(41, 7);
 
 -- --------------------------------------------------------
 
@@ -182,7 +179,7 @@ INSERT INTO `commande_produit` (`commande_id`, `produit_id`) VALUES
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
-  `publication_id` int(11) NOT NULL,
+  `publication_id` int(11) DEFAULT NULL,
   `auteur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contenu` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
@@ -198,7 +195,10 @@ INSERT INTO `comment` (`id`, `publication_id`, `auteur`, `contenu`, `created_at`
 (12, 3, 'fatima123', 'salut publication 3', '2022-05-14 02:39:29', 206),
 (13, 5, 'fatima123', 'test 55', '2022-05-14 02:40:48', 206),
 (15, 1, 'oussama55', 'hey2', '2022-05-14 02:54:29', 205),
-(16, 1, 'oussama55', 'admin comment', '2022-05-14 03:18:35', NULL);
+(16, 1, 'oussama55', 'admin comment', '2022-05-14 03:18:35', NULL),
+(17, 1, 'fatima123', 'salut', '2022-05-16 02:43:36', 206),
+(18, 13, 'oussama55', 'salut', '2022-05-16 15:17:19', 216),
+(19, 13, 'roukaia33', 'salutt admin', '2022-05-16 15:18:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -284,7 +284,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220514022143', '2022-05-14 04:21:47', 430),
 ('DoctrineMigrations\\Version20220514022329', '2022-05-14 04:23:32', 45),
 ('DoctrineMigrations\\Version20220514022424', '2022-05-14 04:24:28', 232),
-('DoctrineMigrations\\Version20220514034858', '2022-05-14 05:49:02', 67);
+('DoctrineMigrations\\Version20220514034858', '2022-05-14 05:49:02', 67),
+('DoctrineMigrations\\Version20220515215219', '2022-05-15 23:52:26', 817);
 
 -- --------------------------------------------------------
 
@@ -305,11 +306,11 @@ CREATE TABLE `equipe` (
 --
 
 INSERT INTO `equipe` (`id`, `nom_equipe`, `membres`, `pts_exp`, `tournois_gagne`) VALUES
-(48, 'valorant', 5, 555, 555),
+(48, 'valorant', 5, 10, 555),
 (51, 'test', 5, NULL, NULL),
 (52, 'hello', 2, NULL, NULL),
-(53, 'roukeee', 2, NULL, NULL),
-(54, 'hii', 4, NULL, NULL),
+(53, 'roukeee', 2, 20, 0),
+(54, 'hii', 4, 0, 0),
 (55, 'league', 4, NULL, NULL),
 (56, 'vvv', 4, 55, 3),
 (57, 'roukaia', 2, NULL, NULL),
@@ -320,9 +321,26 @@ INSERT INTO `equipe` (`id`, `nom_equipe`, `membres`, `pts_exp`, `tournois_gagne`
 (65, 'tattatat', 2, NULL, NULL),
 (66, 'test', 5, NULL, NULL),
 (67, 'testTEAM', 1, NULL, NULL),
-(68, 'AAAAAAAAAA', 5, NULL, NULL),
+(68, 'AAAAAAAAAA', 5, 0, 52),
 (69, 'liquid', 4, NULL, NULL),
-(70, 'fnatic', 4, NULL, NULL);
+(70, 'fnatic', 4, NULL, NULL),
+(71, 'liquid', 2, NULL, NULL),
+(72, 'liquid', 2, NULL, NULL),
+(73, 'helo22', 1, NULL, NULL),
+(74, 'helloooo', 1, NULL, NULL),
+(75, 'aaaaaaa', 1, NULL, NULL),
+(77, 'oussama', 55, NULL, NULL),
+(78, 'cloud9', 2, NULL, NULL),
+(79, 'heyyyy', 55, NULL, NULL),
+(80, 'samira', 2, NULL, NULL),
+(81, 'eazrezrzer', 2, NULL, NULL),
+(82, 'helloo', 4, NULL, NULL),
+(83, 'teamtest', 4, NULL, NULL),
+(84, 'wolves', 4, NULL, NULL),
+(86, 'test70', 4, NULL, NULL),
+(87, 'teamRoukaia', 2, NULL, NULL),
+(88, 'teamRoukaia', 2, NULL, NULL),
+(89, 'teamRoukaia', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -346,10 +364,9 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`game_id`, `idcategory`, `game_name`, `game_description`, `game_link`, `game_img`, `nbr_vu`, `rating`) VALUES
-(14, 6, 'abcc', 'abababb', 'ababab', 'C:\\xampp\\htdocs\\image\\fiora.png', NULL, NULL),
-(15, 3, 'aaaii', 'kkk', 'i', 'C:\\xampp\\htdocs\\image\\tournoi.jpg', NULL, NULL),
-(16, NULL, 'test', 'heelo', 'aaa', 'C:\\xampp\\htdocs\\image\\avatar.png', NULL, NULL),
-(17, NULL, 'hey', 'hey', 'hey', 'C:\\xampp\\htdocs\\image\\ourlogo.png', NULL, NULL);
+(20, 8, 'valorant', 'Valorant is a tactical shooting game involving two teams with 5 players in each team. Every player can sign in and play remotely from anywhere in the world. Every game has 25 rounds and the team that wins 13 of them first wins the game. Players can choose', 'valorant', '6281a28003ddc.jpeg', NULL, NULL),
+(22, 8, 'god of war', 'action game', 'test', '627d060276ab8.png', NULL, NULL),
+(23, 10, 'fifa', 'soccer game', 'test', '8eefda9bca3ccf237ff0f8b9590dad29.jpeg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -400,13 +417,15 @@ CREATE TABLE `participation` (
 --
 
 INSERT INTO `participation` (`id`, `id_tournois`, `id_equipe`, `tournois_nom`, `equipe_nom`) VALUES
-(3, 3, 59, 'test', 'easy'),
-(4, 3, 58, 'test', 'roukaa'),
-(5, 3, 52, 'test', 'hello'),
-(6, 3, 55, 'test', 'league'),
+(3, 3, 59, 'Valorant Tournament', 'easy'),
+(4, 3, 58, 'Valorant Tournament', 'roukaa'),
+(5, 3, 52, 'Valorant Tournament', 'hello'),
+(6, 3, 55, 'Valorant Tournament', 'league'),
 (7, 4, 66, 'test11', 'test'),
 (8, 4, 69, 'test11', 'liquid'),
-(10, 8, 70, 'tournoi55', 'fnatic');
+(16, 4, 83, 'test11', 'teamtest'),
+(17, 4, 78, 'test11', 'cloud9'),
+(18, 11, 87, 'tournoi33', 'teamRoukaia');
 
 -- --------------------------------------------------------
 
@@ -431,13 +450,15 @@ CREATE TABLE `produit` (
 --
 
 INSERT INTO `produit` (`id`, `nom`, `prix`, `image`, `quantite`, `avis`, `nbavis`, `promotion_id`, `reduction`) VALUES
-(4, 'produit1', 200, '1b3d31a60025ee06510e30e94dd45eae.png', 800, 0, 0, NULL, NULL),
-(6, 'produit88', 5, '1d52d4d78c97612ecd0e65a49ad95279.tmp', 894, 0, 0, 7, 50),
-(7, 'produit2', 100, '93354b1dfbdb202b08e673410a5f5826.tmp', 800, 0, 0, NULL, NULL),
+(4, 'produit1', 44, '1b3d31a60025ee06510e30e94dd45eae.png', 800, 0, 0, 8, 50),
+(6, 'produit88', 3, '1b3d31a60025ee06510e30e94dd45eae.png', 889, 0, 0, 11, 70),
+(7, 'produit3', 11, 'ba59d400bac75bc7e4a0d570042b0a3f.tmp', 798, 0, 0, 13, NULL),
 (8, 'micro-casque', 55, 'ba59d400bac75bc7e4a0d570042b0a3f.tmp', 1000, 0, 0, 7, 50),
-(10, 'camera', 55, '6b91c5b9e1571e18bc21e3466dfb8fec.jpeg', 66, 0, 0, NULL, NULL),
-(11, 'mannette', 55, '38ff9fd97ca18a6a290db76061ee3b3b.jpeg', 22, 0, 0, NULL, NULL),
-(13, 'micro-casq', 55, '072d3c2b2398f469da30ada3cdf624be.jpeg', -1, 0, 0, NULL, NULL);
+(11, 'mannette', 27, '38ff9fd97ca18a6a290db76061ee3b3b.jpeg', 22, 0, 0, 7, NULL),
+(13, 'micro-casq', 11, '072d3c2b2398f469da30ada3cdf624be.jpeg', -1, 0, 0, 15, 20),
+(14, 'roukaia', 224.5, '1b3d31a60025ee06510e30e94dd45eae.png', 500, NULL, NULL, 7, 50),
+(15, 'korsi', 50, '1b3d31a60025ee06510e30e94dd45eae.png', 330, NULL, NULL, 7, NULL),
+(17, 'Chaise', 50, '8a480c3452bba1a89b57b8b2c210325e.tmp', 25, NULL, NULL, 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -460,7 +481,12 @@ CREATE TABLE `promotion` (
 INSERT INTO `promotion` (`id`, `nom`, `date`, `prix_pro`, `datef`) VALUES
 (7, 'testttt', '22/10/2022', 50, '22/10/2022'),
 (8, 'helooo', '22/10/2022', 44, '22/10/2022'),
-(9, 'testtt', '22/10/2022', 2, '22/10/2022');
+(11, 'roukaia', '2022-05-26', 70, '2022-06-04'),
+(12, 'php', '2022-04-28', 80, '2022-06-02'),
+(13, 'testmobile', '22/10/2022', 22, '22/30/2022'),
+(14, 'test33', '22/10/2022', 40, '22/10/2022'),
+(15, 'test44', '22/10/2022', 20, '22/10/2022'),
+(16, 'test99', '2022-05-17', 30, '2022-05-26');
 
 -- --------------------------------------------------------
 
@@ -473,7 +499,7 @@ CREATE TABLE `publication` (
   `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contenu` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '(DC2Type:datetime_immutable)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -481,12 +507,14 @@ CREATE TABLE `publication` (
 --
 
 INSERT INTO `publication` (`id`, `titre`, `contenu`, `image`, `created_at`) VALUES
-(1, 'test', 'test', 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg?fbclid=IwAR2YdfZt-GBYM4en8XfGrf5iRY9EnZ6sePr3haqZNbZU8h1Kb6sYtd2P1bU', '2022-05-06 16:42:02'),
-(3, 'test', 'qqsqs', 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg?fbclid=IwAR2YdfZt-GBYM4en8XfGrf5iRY9EnZ6sePr3haqZNbZU8h1Kb6sYtd2P1bU', '2022-05-06 18:18:35'),
-(4, 'test', 'eezeez', 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg?fbclid=IwAR2YdfZt-GBYM4en8XfGrf5iRY9EnZ6sePr3haqZNbZU8h1Kb6sYtd2P1bU', '2022-05-06 18:19:05'),
-(5, 'testt55', 'test', 'https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg', '2022-05-12 13:43:40'),
-(6, 'bonjour', 'game', 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg?fbclid=IwAR2YdfZt-GBYM4en8XfGrf5iRY9EnZ6sePr3haqZNbZU8h1Kb6sYtd2P1bU', '2022-05-12 14:15:35'),
-(7, 'article1', 'test', 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg?fbclid=IwAR2YdfZt-GBYM4en8XfGrf5iRY9EnZ6sePr3haqZNbZU8h1Kb6sYtd2P1bU', '2022-05-12 15:08:02');
+(1, 'test', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur \r\nfugiat, temporibus enim commodi iusto libero magni deleniti quod quam \r\nconsequuntur! Commodi minima excepturi repudiandae velit hic maxime\r\ndoloremque. Quaerat provident commodi consectetur veniam similique ad \r\nearum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo \r\nfugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore \r\nsuscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium\r\nmodi minima sunt esse temporibus sint culpa, recusandae aliquam numquam \r\ntotam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam \r\nquasi aliquam eligendi, placeat qui corporis!\r\n', '627557d68b90c.png', '2022-05-06 16:42:02'),
+(3, 'test', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur \r\nfugiat, temporibus enim commodi iusto libero magni deleniti quod quam \r\nconsequuntur! Commodi minima excepturi repudiandae velit hic maxime\r\ndoloremque. Quaerat provident commodi consectetur veniam similique ad \r\nearum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo \r\nfugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore \r\nsuscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium\r\nmodi minima sunt esse temporibus sint culpa, recusandae aliquam numquam \r\ntotam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam \r\nquasi aliquam eligendi, placeat qui corporis!\r\n', '627557d68b90c.png', '2022-05-06 18:18:35'),
+(5, 'testt55', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur \r\nfugiat, temporibus enim commodi iusto libero magni deleniti quod quam \r\nconsequuntur! Commodi minima excepturi repudiandae velit hic maxime\r\ndoloremque. Quaerat provident commodi consectetur veniam similique ad \r\nearum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo \r\nfugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore \r\nsuscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium\r\nmodi minima sunt esse temporibus sint culpa, recusandae aliquam numquam \r\ntotam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam \r\nquasi aliquam eligendi, placeat qui corporis!\r\n', '627557d68b90c.png', '2022-05-12 13:43:40'),
+(6, 'bonjour2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur \r\nfugiat, temporibus enim commodi iusto libero magni deleniti quod quam \r\nconsequuntur! Commodi minima excepturi repudiandae velit hic maxime\r\ndoloremque. Quaerat provident commodi consectetur veniam similique ad \r\nearum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo \r\nfugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore \r\nsuscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium\r\nmodi minima sunt esse temporibus sint culpa, recusandae aliquam numquam \r\ntotam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam \r\nquasi aliquam eligendi, placeat qui corporis!\r\n', '627557d68b90c.png', '2022-05-12 14:15:35'),
+(8, 'java', 'java', '627d060276ab8.png', '2022-05-15 22:22:01'),
+(11, 'hello', 'heyyyy', '169c41994b87749f925aae23ee0c7d8b.jpeg', '2022-05-16 00:00:47'),
+(12, 'oussama', 'test', '627b86dc7a61e.png', '2022-05-15 23:06:35'),
+(13, 'roukaia', 'test', 'featured_game_thumb01.jpg', '2022-05-16 14:16:20');
 
 -- --------------------------------------------------------
 
@@ -549,10 +577,11 @@ CREATE TABLE `tournois` (
 --
 
 INSERT INTO `tournois` (`id`, `nom_tournois`, `capacite`, `recompense`, `date_tournois`, `pts_xp`, `time_t`, `platforme`) VALUES
-(3, 'test', 4, '2', '2022-05-13', 555, '10:45:00', NULL),
+(3, 'Valorant Tournament', 4, '2', '2022-05-16', 555, '17:00:00', NULL),
 (4, 'test11', 4, '1', '2022-08-06', 25, '13:18:00', NULL),
 (5, 'test22', 5, '2', '2022-09-28', 44, '17:29:22', NULL),
-(8, 'tournoi55', 4, '1', '2022-05-13', 25, '14:16:00', NULL);
+(8, 'tournoi55', 4, '1', '2022-05-13', 25, '14:16:00', NULL),
+(11, 'tournoi33', 5, '25', '2022-05-18', 22, '18:00:00', 'play');
 
 -- --------------------------------------------------------
 
@@ -622,11 +651,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `gender`, `address`, `phone`, `nationality`, `image`, `equipe`, `created_at`, `roles`, `is_verified`, `unread_m`, `last_login`, `is_social`, `role`, `java_password`, `password2`) VALUES
-(183, NULL, NULL, 'oussama55', 'roukaia.khelifi@esprit.tn', '$2a$12$iRA0ZOQ3YhN.eBXtBPZCUu8CGx5Zhc6XzLxXeGNAD9tvQjV0pWWWC', 'female', NULL, 96566945, NULL, '90d52bc7aad7b75d4dd478318c8d2883.png', NULL, '2022-05-12 02:41:33', '[\"ROLE_ADMIN\"]', 0, NULL, '2022-05-14 22:47:20', NULL, 'admin', NULL, NULL),
-(198, 'oussama', 'jmaa', 'oussama589', 'jemaaoussama64@gmail.com', '$2a$12$PZv02SAP5L9RDSfPBsiPKuE5bv22K8/gKVHdFbA1euUMuYZArW9YW', 'female', 'nabeul', 22658131, 'Tunisia', 'f13ef7d394c88cb68fbb7e2c00769662.jpeg', NULL, '2022-05-13 00:49:22', '[\"ROLE_USER\"]', 1, NULL, '2022-05-13 22:11:13', NULL, 'client', NULL, NULL),
-(201, 'oussama', 'jmaa', 'oussama111', 'oussama.jmaa@esprit.tn', '$2a$12$dAJuh/3YQkUk4AWc0kALtuYgc9pmJXXMLCKVY63uO7FCriYJMNZye', 'female', 'nabeul', 22658131, 'Tunisia', 'C:\\Users\\oussa\\Desktop\\avatar.png', NULL, '2022-05-13 11:36:52', '[\"ROLE_USER\"]', 1, NULL, '2022-05-13 12:38:57', NULL, 'admin', 'Azerty1234@', NULL),
-(205, 'oussama', 'jmaa', 'oussama0022', 'roukaia70@gmail.com', '$2a$12$ap/kPVjBqfgmUwVzmOdtGeKagdiKMASiHGtZzy4BWJW9w9mzBi2Nu', 'Male', 'nabeul', 22658131, 'Tunisia', 'C:\\Users\\oussa\\Desktop\\avatar.png', NULL, '2022-05-13 14:09:04', '[\"ROLE_USER\"]', 0, NULL, '2022-05-14 02:53:58', NULL, 'client', 'Azerty1234@', NULL),
-(206, 'oussama', 'jmaa', 'fatima123', 'fatimafatouma784@gmail.com', '$2a$12$NJRHQ6uvaxO5CKs3KGOcKeckqPzFq.gwcu7aXv0Rre0KQ2vnbpof6', 'female', 'nabeul', 22658131, 'Tunisia', 'C:\\Users\\oussa\\Desktop\\avatar.png', NULL, '2022-05-13 21:40:50', '[\"ROLE_USER\"]', 1, NULL, '2022-05-14 15:55:55', NULL, 'client', 'Azerty1234@', NULL);
+(205, 'oussama', 'jmaa', 'oussama0022', 'roukaia70@gmail.com', '$2a$12$ap/kPVjBqfgmUwVzmOdtGeKagdiKMASiHGtZzy4BWJW9w9mzBi2Nu', 'female', 'nabeul', 22658131, 'Tunisia', 'a78a1571df23466a179f83513070b917.jpeg', NULL, '2022-05-13 14:09:04', '[\"ROLE_ADMIN\"]', 0, NULL, '2022-11-16 03:55:34', NULL, 'admin', 'Azerty1234@', NULL),
+(206, 'oussama', 'jmaa', 'oussama44', 'fatimafatouma784@gmail.com', '$2y$13$uUqKrOez1KOJckPS0pagX.A9XZb84.5Io4qmR8xhi7ltbd5mNfq/O', 'female', 'nabeul', 22658131, 'Tunisia', '09e4390a0db37c095df23f10480622bc.jpeg', 78, '2022-05-13 21:40:50', '[\"ROLE_USER\"]', 1, NULL, '2022-05-16 04:12:26', NULL, 'client', 'Azerty555@', NULL),
+(211, 'roukaia', 'khelifi', 'roukaia33', 'roukaia.khelifi@esprit.tn', '$2a$12$Q7uPcm73xpK1VVLKQ.hyN.u1Ajl05wp8yI3cohj.gzeBBEScncQq.', 'Female', 'nabeul', 22658131, 'Tunisia', '9dd5f50f8ba6ef71d7154198a363660c.png', NULL, '2022-05-15 23:22:52', '[\"ROLE_ADMIN\"]', 0, NULL, '2022-05-16 13:17:50', NULL, 'admin', 'Azerty000@', NULL),
+(214, 'oussama', 'oussama', 'oussama99', 'hh', '$2y$13$w8M7Yi.o7ZWX/qNoNpw1iuuaGVKL55tjKzkbtE9cIEn0U/lqsrCE6', NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-16 12:18:10', '[\"ROLE_USER\"]', 0, NULL, NULL, NULL, 'client', 'Azerty1234@', NULL),
+(215, 'oussama', NULL, 'oussama33', 'oussama.jmaa@esprit.tn', '$2a$12$3uHhC1o1EkoZtdbVnzh7WOGAf4Z3ZGAR3qMAF7oYRmyUyqyOLJq/6', 'male', NULL, NULL, NULL, '099f19a33fa878ae75b8a3acfcdd911b.jpeg', NULL, '2022-05-16 12:20:53', '[\"ROLE_USER\"]', 1, NULL, '2022-05-16 13:53:51', NULL, 'client', 'Azerty12345@', NULL),
+(216, NULL, NULL, 'oussama55', 'jemaaoussama64@gmail.com', '$2y$13$5F65JFS8nrgKyRRBVWCRVeRcSD8NDwWxlwnl7R.xxGfhRzRUEZp/C', 'male', NULL, NULL, NULL, NULL, 87, '2022-05-16 14:47:00', '[\"ROLE_USER\"]', 1, NULL, '2022-05-16 14:58:50', NULL, 'client', 'Azerty123456789@', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -797,31 +827,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `archive`
 --
 ALTER TABLE `archive`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `bracket`
 --
 ALTER TABLE `bracket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `commentaires`
@@ -833,13 +863,13 @@ ALTER TABLE `commentaires`
 -- AUTO_INCREMENT pour la table `equipe`
 --
 ALTER TABLE `equipe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT pour la table `game`
 --
 ALTER TABLE `game`
-  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `message`
@@ -857,25 +887,25 @@ ALTER TABLE `panier`
 -- AUTO_INCREMENT pour la table `participation`
 --
 ALTER TABLE `participation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
 --
 ALTER TABLE `produit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `promotion`
 --
 ALTER TABLE `promotion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `publication`
 --
 ALTER TABLE `publication`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `publications`
@@ -893,13 +923,13 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT pour la table `reset_password_request`
 --
 ALTER TABLE `reset_password_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT pour la table `tournois`
 --
 ALTER TABLE `tournois`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `trash`
@@ -911,7 +941,7 @@ ALTER TABLE `trash`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- Contraintes pour les tables déchargées
@@ -934,7 +964,7 @@ ALTER TABLE `commande_produit`
 -- Contraintes pour la table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_9474526C38B217A7` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`id`),
+  ADD CONSTRAINT `FK_9474526C38B217A7` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_9474526CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --

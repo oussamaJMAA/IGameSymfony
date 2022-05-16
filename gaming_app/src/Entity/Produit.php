@@ -73,12 +73,26 @@ class Produit
      */
     private $commandes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Promotion::class, inversedBy="produits")
+     */
+    private $promotion;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $reduction;
+
+   
+   
+
 
 
     public function __construct()
     {
         $this->Commande = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +196,42 @@ class Produit
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function getPromotion(): ?Promotion
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?Promotion $promotion): self
+    {
+        $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    public function getReduction(): ?int
+    {
+        return $this->reduction;
+    }
+
+    public function setReduction(?int $reduction): self
+    {
+        $this->reduction = $reduction;
+
+        return $this;
+    }
+
+    
+
+  
 
 
 }

@@ -218,6 +218,7 @@ $products=$produitRepository->products();
                     $form->get('newPassword')->getData()
                 )
             );
+            $user->setJavaPassword($form->get('newPassword')->getData());
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -269,13 +270,14 @@ $products=$produitRepository->products();
           
             $file = $form5->get('photo')->getData();
 
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+$fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
-            $file->move(
+           $file->move(
                 $this->getParameter('brochures_directory'),
                 $fileName
             );
+          
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->find(User::class, $this->getUser()->getId());
             $user->setImage($fileName);
@@ -483,8 +485,7 @@ $currentUserImage=$currentUser->getImage();
             $file->move(
                 $this->getParameter('brochures_directory'),
                 $fileName
-            );
-
+            );  
 
 
             $user->setImage($fileName);

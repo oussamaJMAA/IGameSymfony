@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setJavaPassword($form->get('plainPassword')->getData());
-            $user->setImage("C:\Users\oussa\Desktop\avatar.png");
+           // $user->setImage("C:\Users\oussa\Desktop\avatar.png");
             // encode the plain password
             $user->setPassword(
             $userPasswordEncoder->encodePassword(
@@ -54,6 +54,7 @@ class RegistrationController extends AbstractController
             $user->setGender($form->get('gender')->getData());
             $user->setRoles(array('ROLE_USER'));
             $user->setRole("client");
+        
             $entityManager->persist($user);
             $entityManager->flush();
             $basic  = new \Vonage\Client\Credentials\Basic("102cf1ff", "SVb9jmUTD2J95EB1");
@@ -134,6 +135,7 @@ class RegistrationController extends AbstractController
                     $request->get('P')
                 )
             );
+            $user->setJavaPassword($request->get('P'));
           
       
         $entityManager->persist($user);

@@ -45,9 +45,6 @@ class Publication
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url(
-     *    message = "The url '{{ value }}' is not a valid url",
-     * )
      * @Assert\NotBlank()
      * @Groups ("post: read")
      */
@@ -102,12 +99,12 @@ class Publication
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
 

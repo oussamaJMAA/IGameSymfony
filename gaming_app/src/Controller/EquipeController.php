@@ -52,6 +52,16 @@ $em = $this->getDoctrine()->getManager();
 $tournois = new Equipe();
 $tournois->setNomEquipe($request->get('N'));
 $tournois->setMembres($request->get('M'));
+
+$email = (new Email())
+            
+->from('roukaia70@gmail.com')
+->to('jemaaoussama64@gmail.com')
+->subject('Added to a team')
+->text('Sending emails is fun again!')
+->html('<p>Welcome to our application! , you are added in a team</p>');
+$mailer->send($email);
+
 $basic  = new \Vonage\Client\Credentials\Basic("102cf1ff", "SVb9jmUTD2J95EB1");
             $client = new \Vonage\Client($basic);
             $message = $client->message()->send([

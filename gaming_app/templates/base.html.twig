@@ -114,6 +114,8 @@
 												</span>
 											</a>
 										</li>
+										{% if app.user %}
+										{% if  not app.user.equipe %}
 											<li>
 											<a href="{{path('equipe_front')}}" class="mpl-nav-link">
 												<span class="mpl-nav-link-name">
@@ -121,6 +123,8 @@
 												</span>
 											</a>
 										</li>
+										{% endif %}
+										{% endif %}
 									
 									</ul>
 								</div>

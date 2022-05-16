@@ -40,9 +40,14 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity=Publication::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $publication;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -106,6 +111,18 @@ class Comment
 
     public function __toString() {
         return strval($this->id);
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

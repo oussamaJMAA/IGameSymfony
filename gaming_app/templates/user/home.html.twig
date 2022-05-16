@@ -60,6 +60,9 @@
 <span class="mpl-image">
 <img src="/uploads/photos/{{p.image}}" alt="">
 </span>
+{% if p.reduction%}
+<span class="badge badge-brand">-{{p.reduction}}%</span>
+{% endif %}
 </span>
 </span>
 </span>

@@ -78,7 +78,7 @@
 			a
 			{{publication.createdAt | date('H:i')}}</div>
 		<div class="content">
-			<img src="{{ publication.image }}" alt="">
+			<img src="{{ asset('uploads/photos/' ~ publication.image) }}" alt="">
 			<p>{{ publication.contenu }}</p>
 		</div>
 		<a href="{{ path('delete_blog', {'id': publication.id}) }}" class="btn btn-primary">Supprimer </a>
