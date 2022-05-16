@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="keywords" content=""/>
+		<meta name="author" content=""/>
+		<meta name="robots" content=""/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Jobick : Job Admin Bootstrap 5 Template"/>
+		<meta property="og:title" content="Jobick : Job Admin Bootstrap 5 Template"/>
+		<meta property="og:description" content="Jobick : Job Admin Bootstrap 5 Template"/>
+		<meta property="og:image" content="social-image.png"/>
+		<meta
+		name="format-detection" content="telephone=no">
+
+		<!-- PAGE TITLE HERE -->
+		<title>Admin Dashboard</title>
+
+		<!-- FAVICONS ICON -->
+		<link
+		rel="shortcut icon" type="image/png" href="{{asset('images/favicon.png')}}"/>
+		<!-- Datatable -->
+		<link
+		href="{{asset('vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+		<!-- Custom Stylesheet -->
+		<link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+		<link href="{{asset('vendor/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
+		<link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+		<link href="{{asset('css/style.css')}}" rel="stylesheet">
+
+
+
+
+
+
+
+
+	</head>
+
+	<body>
+
+	
+	
+	
+		<div id="preloader">
+			<div class="lds-ripple">
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+
+																																  
+
+
+	
+																																      
+		<div
+			id="main-wrapper">
+
+		
+	
+			
+			{% include 'base2.html.twig' %}
+            	<div class="content-body"> <div class="container-fluid">
+
+					<div class="row page-titles">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item active">
+								<a href="javascript:void(0)">Table</a>
+							</li>
+							<li class="breadcrumb-item">
+								<a href="javascript:void(0)">Datatable</a>
+							</li>
+						</ol>
+					</div>
+			
+
+
+					<div class="row">
+
+						<div class="col-12">
+    
+    <div class="card">
+        {{ form_start(form) }}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-6  col-md-6 mb-4">
+                    <label class="form-label font-w600">Choisissez la promotion<span class="text-danger scale5 ms-2">*</span></label>
+                    {{ form_widget(form.promotion)}}
+                </div>
+           
+             
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div>
+              {{ form_widget(form.save) }}
+        
+            </div>
+        </div>
+        {{ form_end(form) }}
+   </div>
+    </div>
+        </div>
+    </div>
+    
+<script src="{{asset('vendor/global/global.min.js')}}"> </script><script src="{{asset('vendor/chart.js/Chart.bundle.min.js')}}"></script><!-- Apex Chart --><script src="{{asset('vendor/apexchart/apexchart.js')}}"></script><!-- Datatable --><script src="{{asset('vendor/datatables/js/jquery.dataTables.min.js')}}"></script><script src="{{asset('js/plugins-init/datatables.init.js')}}"></script><script src="{{asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script><script src="{{asset('js/custom.min.js')}}"></script><script src="{{asset('js/dlabnav-init.js')}}"></script><script src="{{asset('js/demo.js')}}"></script><script src="{{asset('js/styleSwitcher.js')}}"></script><script src="{{asset('vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script><script src="{{asset('js/plugins-init/sweetalert.init.js')}}"></script><script src="{{asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
+		
+
+
+		
+		
+		
+		</body>
+		
+		
+		
+		</html>
