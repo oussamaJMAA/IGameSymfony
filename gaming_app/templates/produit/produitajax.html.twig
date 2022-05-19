@@ -1,20 +1,38 @@
 
-    {% for produit in produits %}
-        <tr>
-           
-            <td>{{ produit.Nom }}</td>
-            <td>{{ produit.Prix }}</td>
-            <td><img src="{{ asset('uploads/photos/'~produit.Image) }}" WIDTH=150 HEIGHT=120 alt=""></td>
-            <td>{{ produit.Quantite }}</td>
-            <td>{{ produit.avis }}</td>
-            <td>
-    
-                <a href="{{ path('commande_new', {'idproduit':produit.id}) }}" class="filled-button" style="margin: 5px;">Commander</a>
-                <a href="{{ path('cart_add',{'id':produit.id}) }}" class="filled-button" style="margin: 5px;">Ajouter panier</a>
-            </td>
-        </tr>
-    {% else %}
-        <tr>
-            <td colspan="7">no records found</td>
-        </tr>
-    {% endfor %}
+<div class="mpl-box-md">
+        <div class="container">
+            <ul class="mpl-isotope-options" data-sr="option" data-sr-origin="left" data-sr-interval="100"
+                data-sr-duration="1000" data-sr-distance="10">
+              
+            </ul>
+            <div class="mpl-isotope-grid row hgap-xs vgap-md" data-sr="product" data-sr-interval="120"
+                 data-sr-duration="1200" data-sr-distance="20">
+                {% for produit in produits %}
+                    <div class="mpl-isotope-item col-12 col-sm-6 col-md-4">
+                     
+
+
+
+
+                            <span class="mpl-product-title h4">{{ produit.Nom }}</span>
+
+                          
+
+
+                          <span class="mpl-product-image">   <span class="mpl-image"><img src="{{ asset('uploads/photos/'~produit.Image) }}" WIDTH=150 HEIGHT=120 alt=""> </span>
+</span>
+                             
+
+                                  <span class="mpl-price"> {{ produit.Prix }} DT</span>
+                                  <a href="{{ path('commande_new', {'idproduit':produit.id}) }}" class="filled-button">Commander</a>
+
+                                  <a href="{{ path('cart_add',{'id':produit.id}) }}" class="filled-button">Panier</a>
+                            </span>
+                            <span class="mpl-product-content">
+                        </a>
+                    </div>
+                {% endfor %}
+              
+            </div>
+        </div>
+    </div>
